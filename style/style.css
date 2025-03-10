@@ -5,36 +5,98 @@
     --my-light: #26262c;
     --my-white: #d4d4e4;
 }
+*{
+    color: var(--my-white);
+}
 body{
     background-color: var(--my-black);
 }
+form{
+    width: 600px; height: 600px;
+    margin: auto;
+}
+input{
+    width: 100%;
+    background-color: var(--my-lightter-black);
+    border: none;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 2.5vh;
+    margin-right: 5px;
+    padding: 10px;
+}
+label{
+    font-size: 25px;
+}
+h1{
+    color: var(--my-white);
+}
+#button{
+    background-color: var(--my-blue);
+    font-size: 25px;
+}
 .my-main>.left , .my-main>.right{
-    width: 30vw; height: 30vw;
+    width: 25vw; height: 25vw;
     background-color: var(--my-lightter-black);
     border-radius: 10px;
+    offset: scroll;
+}
+.right{
+    width: 25vw; height: 25vw;
+    background-color: var(--my-lightter-black);
+    border-radius: 10px;
+    offset: scroll;
 }
 .left>.top, .right>.top{
-    height: 60px;
-    font-size: 4vh;
+    height: 50px;
+    font-size: 3vh;
     background-color: var(--my-blue);
     border-radius: 10px 10px 0 0;
     color: var(--my-white);
 }
-.bottom>.my-page-block{
-    width: 60vh; height: 10vh;
-    border-radius: 5px;
-    background-color: var(--my-light);
-}
-.my-page-block>p{
+.my-page-block{
     font-style: italic;
     color: var(--my-white);
     font-size: 2.5vh;
-    line-height: 10vh;
-}
-.my-page-block{
     transition-duration: 0.5s;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: var(--my-light);
+    margin-bottom: 5px;
 }
 .my-page-block:hover{
     background-color: var(--my-blue);
     cursor: pointer;
+}
+.insert{
+    width: 65vw; height: 10vw;
+    background-color: var(--my-lightter-black);
+    border-radius: 10px;
+}
+.top-insert{
+    height: 50px;
+    background-color: var(--my-blue);
+    border-radius: 10px 10px 0 0;
+    color: var(--my-white);
+}
+.top-insert>p{
+    font-size: 3vh;
+}
+.bottom-insert>form{
+    width: 100%;
+}
+.bottom-insert>form>input{
+    color: var(--my-white);
+    background-color: var(--my-light);
+    width: 100vh; height: 6vh;
+}
+#btn{
+    background-color: var(--my-blue);
+    width: 20vh; height: 6vh;
+    border-radius: 50px;
+}
+.invisible{
+    display: none;
 }
