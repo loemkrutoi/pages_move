@@ -1,0 +1,40 @@
+:root{
+    --my-black: #121213;
+    --my-blue: #3232db;
+    --my-lightter-black: #1d1d20;
+    --my-light: #26262c;
+    --my-white: #d4d4e4;
+}
+body{
+    background-color: var(--my-black);
+}
+.my-main>.left , .my-main>.right{
+    width: 30vw; height: 30vw;
+    background-color: var(--my-lightter-black);
+    border-radius: 10px;
+}
+.left>.top, .right>.top{
+    height: 60px;
+    font-size: 4vh;
+    background-color: var(--my-blue);
+    border-radius: 10px 10px 0 0;
+    color: var(--my-white);
+}
+.bottom>.my-page-block{
+    width: 60vh; height: 10vh;
+    border-radius: 5px;
+    background-color: var(--my-light);
+}
+.my-page-block>p{
+    font-style: italic;
+    color: var(--my-white);
+    font-size: 2.5vh;
+    line-height: 10vh;
+}
+.my-page-block{
+    transition-duration: 0.5s;
+}
+.my-page-block:hover{
+    background-color: var(--my-blue);
+    cursor: pointer;
+}
