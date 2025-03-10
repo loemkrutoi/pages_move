@@ -3,18 +3,20 @@
     --my-blue: #3232db;
     --my-lightter-black: #1d1d20;
     --my-light: #26262c;
+    --my-highlited: rgb(48, 48, 57);
     --my-white: #d4d4e4;
 }
 *{
     color: var(--my-white);
+    font-family: "Comfortaa", sans-serif;
 }
 body{
     background-color: var(--my-black);
 }
-form{
+/* form{
     width: 600px; height: 600px;
     margin: auto;
-}
+} */
 input{
     width: 100%;
     background-color: var(--my-lightter-black);
@@ -25,6 +27,11 @@ input{
     font-size: 2.5vh;
     margin-right: 5px;
     padding: 10px;
+    outline: none;
+    transition-duration: 0.3s;
+}
+input:focus{
+    background-color: var(--my-highlited);
 }
 label{
     font-size: 25px;
@@ -37,41 +44,38 @@ h1{
     font-size: 25px;
 }
 .my-main>.left , .my-main>.right{
-    width: 25vw; height: 25vw;
-    background-color: var(--my-lightter-black);
-    border-radius: 10px;
-    offset: scroll;
+    width: 50vh; height: 55vh;
 }
-.right{
-    width: 25vw; height: 25vw;
+.bottom{
+    height: 49vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
     background-color: var(--my-lightter-black);
-    border-radius: 10px;
-    offset: scroll;
+    border-radius: 0 0 10px 10px;
+    align-content: start;
 }
-.left>.top, .right>.top{
-    height: 50px;
-    font-size: 3vh;
+.top{
+    font-size: 2.5vh;
+    padding-top: 20px;
+    padding-bottom: 5px;
     background-color: var(--my-blue);
     border-radius: 10px 10px 0 0;
     color: var(--my-white);
 }
 .my-page-block{
-    font-style: italic;
+    height: 50px;
     color: var(--my-white);
     font-size: 2.5vh;
-    transition-duration: 0.5s;
+    transition-duration: 0.3s;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
-    background-color: var(--my-light);
     margin-bottom: 5px;
-}
-.my-page-block:hover{
-    background-color: var(--my-blue);
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
 .insert{
-    width: 65vw; height: 10vw;
+    width: auto; height: auto;
     background-color: var(--my-lightter-black);
     border-radius: 10px;
 }
@@ -90,13 +94,55 @@ h1{
 .bottom-insert>form>input{
     color: var(--my-white);
     background-color: var(--my-light);
-    width: 100vh; height: 6vh;
+    width: 30vh; height: 6vh;
+}
+.bottom-insert>form>label{
+    line-height: 50px;
+}
+.bottom-insert>form>input:focus{
+    background-color: var(--my-highlited);
 }
 #btn{
     background-color: var(--my-blue);
-    width: 20vh; height: 6vh;
+    width: 10vh; height: 6vh;
     border-radius: 50px;
 }
 .invisible{
     display: none;
+}
+.number{
+    width: 40px;
+    margin-top: 5px;
+}
+.page-text{
+    white-space: nowrap;
+    width: 300px; height: 45px;
+    border-radius: 5px;
+    line-height: 45px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: var(--my-light);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--my-lightter-black) var(--my-light);
+    transition-duration: 0.3s;
+}
+.page-text:hover{
+    background-color: var(--my-blue);
+}
+.edit,.delete{
+    padding: 5px;
+    width: 45px; height: 45px;
+    border-radius: 100%;
+}
+.edit{
+    background-color: green;
+    margin-right: 5px;
+}
+.delete{
+    background-color: red;
+}
+.edit:hover, .delete:hover{
+    cursor: pointer;
 }

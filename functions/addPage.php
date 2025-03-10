@@ -1,6 +1,6 @@
 <?php 
 
-require_once('config/link.php');
+require_once('../config/link.php');
 
 if((!empty($_POST)) && isset($_POST)){
     $page = $_POST['page'];
