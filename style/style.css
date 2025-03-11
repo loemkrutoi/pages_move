@@ -13,8 +13,9 @@
 body{
     background-color: var(--my-black);
 }
-.authForm{
-    width: 50vh;
+form{
+    width: 600px; height: 600px;
+    margin: auto;
 }
 input{
     width: 100%;
@@ -42,13 +43,14 @@ h1{
     background-color: var(--my-blue);
     font-size: 25px;
 }
-.left{
-    width: 70vh; height: 55vh;
+.my-main>.left , .my-main>.right{
+    width: 25vw; height: 25vw;
+    background-color: var(--my-lightter-black);
+    border-radius: 10px;
+    offset: scroll;
 }
-.bottom{
-    height: 49vh;
-    overflow-y: scroll;
-    scrollbar-width: none;
+.right{
+    width: 25vw; height: 25vw;
     background-color: var(--my-lightter-black);
     border-radius: 0 0 10px 10px;
     align-content: start;
@@ -108,40 +110,4 @@ h1{
 }
 .invisible{
     display: none;
-}
-.number{
-    width: 40px;
-    margin-top: 5px;
-}
-.page-text{
-    white-space: nowrap;
-    width: 450px; height: 45px;
-    border-radius: 5px;
-    line-height: 45px;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: var(--my-light);
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: var(--my-lightter-black) var(--my-light);
-    transition-duration: 0.3s;
-}
-.page-text:hover{
-    background-color: var(--my-highlited);
-}
-.edit,.delete{
-    padding: 5px;
-    width: 45px; height: 45px;
-    border-radius: 100%;
-}
-.edit{
-    background-color: green;
-    margin-right: 5px;
-}
-.delete{
-    background-color: red;
-}
-.edit:hover, .delete:hover{
-    cursor: pointer;
 }
