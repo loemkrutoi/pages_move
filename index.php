@@ -6,31 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <h1 class="text-center mt-5 mb-5 ">авторизуйтесь пожалуйста</h1>
-    <form action="" method="POST">
-        <label for="login">логин</label><br>
-        <input type="text" id="login" name="login"><br><br>
+    <?php 
 
-        <label for="login">парол</label><br>
+    require_once('config/link.php');
+
+    if ((!empty($_POST) && isset($_POST))) {
+
+        $login = mysqli_real_escape_string($link, $_POST['login']);
+        $password = mysqli_real_escape_string($link, $_POST['password']);
+
+        if ($login == "" || $password == "") {
+            // echo "<h1 class='text-center text-danger'>Некоторые поля не заполнены!</h1>";
+        }
+        else if($login != "" && $password != "") {
+            if ($login == "loem" && $password == "loh") {
+                header("Location: admin.php");
+            }
+            else{
+                header("Location: user.php");
+            }
+        }
+    }
+    ?>
+    <h1 class="text-center mt-5 mb-5 ">Авторизация</h1>
+    <form action="" method="POST" class="authForm m-auto text-center">
+        <label for="login">Логин</label><br>
+        <input type="text" id="login" name="login"><br><br>
+        <label for="login">Пароль</label><br>
         <input type="password" id="password" name="password"><br><br><br>
         <input type="submit" id="button">
     </form>
+
 </body>
 </html>
-<?php 
-require_once('config/link.php');
-
-if ((!empty($_POST) && isset($_POST))) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    if ($login == "" || $password == "") {
-        echo "Заполните все поля";
-    }
-    else if ($login == "loem" && $password == "loh") {
-        header("Location: admin.php");
-    }
-}
-?>
