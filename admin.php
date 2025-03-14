@@ -14,6 +14,11 @@
 
     <?php 
 
+    session_start();
+
+    if($_SESSION['role'] != 'admin'){
+        header('"Location: index.php"');
+    }
     require_once('header.php');
 
     $i = 1;
@@ -50,31 +55,21 @@
                         <a class="nav-link text-light" href="index.php">index page</a>
                         </li>
                         <?php
+                            $linkToDelete = $_GET["linkToDelete"];
+                            $deleteQuery = "DELETE FROM `pages` WHERE `name_page` = '$linkToDelete'";
+                            $del = $link->prepare($deleteQuery);
+                            $del->execute();
+                            $res = $del->get_result();
+
                             $selectQuery = "SELECT * FROM `pages`";
                             $query = $link->prepare($selectQuery);
                             $query->execute();
                             $result = $query->get_result();
-
-                            // $keyPage = $_GET["key"];
-                            // $deleteQuery = "DELETE FROM `pages` WHERE `key_page` = '$keyPage'";
-                            // $del = $link->prepare($deleteQuery);
-                            // $del->execute();
-                            // $res = $del->get_result();
                             
                             foreach($result as $row) {
                                 echo '<a href="'.$row['key_page'].'" class="nav-link text-light">'.$row['name_page'].'</a>';
                             }
                         ?>
-                        <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                        </li> -->
                     </ul>
                     </div>
                 </div>
@@ -112,7 +107,7 @@
                                 <div class="number">' . $i . '. </div>
                                 <input hidden type="text" value="' . $row['id_page'] . '">
                                 <input hidden type="text" value="' . $row['key_page'] . '">
-                                <input hidden type="text" class="page-text text-center" name="keyToDelete" value="' . $row['name_page'] . '">' . 
+                                <input hidden type="text" class="page-text text-center" name="linkToDelete" value="' . $row['name_page'] . '">' . 
                                 '<p>' . $row['name_page'] .
                                 ' | <a href=' . $row['key_page'] . '>' .  $row['key_page'] . '</a></p>' .
                                 '<input class="delete" type="submit" value="x">

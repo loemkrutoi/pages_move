@@ -15,6 +15,8 @@
     <?php 
     require_once('config/link.php');
 
+    session_start();
+
     if ((!empty($_POST['login']) && !empty($_POST['login']) && isset($_POST))) {
 
         $login = mysqli_real_escape_string($link, $_POST['login']);
@@ -22,9 +24,11 @@
 
         if($login != "" && $password != "") {
             if ($login == "loem" && $password == "loh") {
+                $_SESSION['role'] = 'admin';
                 header("Location: admin.php");
             }
             else{
+                $_SESSION['role'] = 'user';
                 header("Location: user.php");
             }
         }

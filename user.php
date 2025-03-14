@@ -13,6 +13,11 @@
 <body>
     <?php 
 
+    session_start();
+
+    if($_SESSION['role'] != 'admin'){
+        header('"Location: index.php"');
+    }
     require_once('header.php');
 
     ?>
