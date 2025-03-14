@@ -21,9 +21,10 @@
 
     if ((!empty($_POST['page']) && !(empty($_POST['pageKey'])) && isset($_POST))) {
         $page = mysqli_real_escape_string($link, $_POST['page']);
-        $pageKey = preg_replace('/\s\w/', '_' , mysqli_real_escape_string($link, $_POST['pageKey'] . '.html'));
+        $pageKey = preg_replace('/\s\w/', '_' , mysqli_real_escape_string($link, $_POST['pageKey'] . '.php'));
         $pageContent =
         "
+        <?php require_once('header.php'); ?>
         <h1>Добро пожаловать на страницу " . $page . " !</h1>
         <a href='admin.php'>вернуться на страницу админа</a><br>
         <a href='index.php'>вернуться на страницу авторизации</a>
@@ -49,38 +50,28 @@
                         <a class="nav-link text-light" href="index.php">index page</a>
                         </li>
                         <?php
+                            $keyToDelete = $_GET["keyToDelete"];
+                            $deleteQuery = "DELETE FROM `pages` WHERE `name_page` = '$keyToDelete'";
+                            $del = $link->prepare($deleteQuery);
+                            $del->execute();
+                            $res = $del->get_result();
+                            
                             $selectQuery = "SELECT * FROM `pages`";
                             $query = $link->prepare($selectQuery);
                             $query->execute();
                             $result = $query->get_result();
-
-                            // $keyPage = $_GET["key"];
-                            // $deleteQuery = "DELETE FROM `pages` WHERE `key_page` = '$keyPage'";
-                            // $del = $link->prepare($deleteQuery);
-                            // $del->execute();
-                            // $res = $del->get_result();
                             
                             foreach($result as $row) {
                                 echo '<a href="'.$row['key_page'].'" class="nav-link text-light">'.$row['name_page'].'</a>';
                             }
                         ?>
-                        <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                        </li> -->
                     </ul>
                     </div>
                 </div>
             </nav>
-        </div>
-    <div class="my-main m-auto container w-100 vh-100 row d-flex justify-content-around align-items-center wrap-nowrap">
-        <div class="container col-12">
+    </div>
+    <!-- <div class="my-main m-auto container w-100 vh-100 row d-flex justify-content-around align-items-center wrap-nowrap"> -->
+        <div class="container col-12 vh-100 my-auto">
             <div class="insert">
                 <div class="top text-center">    
                     <p>Добавить новые пункты</p>
@@ -91,54 +82,58 @@
                         <input type="text" id="page" name="page">
                         <label for="pageKey">Введите ссылку</label>
                         <input type="text" id="pageKey" name="pageKey">
-                        <input id="btn" type="submit" value="+">
+                        <input id="btn" type="submit" value="ДОБАВИТЬ">
                     </form>
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-between">
-            <div class="left col-4 p-0">
-                <div class="top text-center">
-                    <p>Все пункты меню</p>
-                </div>
-                <div class="bottom row p-2 w-100 mx-auto">
-                    <?php 
-                    foreach($result as $row) {
-                        echo '
-                        <div class="my-page-block col-12 mt-2">
-                            <div class="number">' . $i . '. </div>
-                            <p class="page-text text-center">'. $row['name_page'] . ' | ' . '<a href=' . $row['key_page'] . '>' .  $row['key_page'] . '</a>' . '</p>
-                            <div class="handlers d-flex flex-wrap justify-content-between">
-                                <form action="" method="GET">
-                                    <input type="submit" class="delete" name="key" value="x"></div>
-                                </form>
+
+            <div class="container my-container vh-100 d-flex justify-content-between wrap-nowrap">
+                <div class="left col-4 p-0">
+                    <div class="top text-center">
+                        <p>Все пункты меню</p>
+                    </div>
+                    <div class="bottom p-2 w-100 mx-auto">
+                        <?php 
+                        foreach($result as $row) {
+                            echo '
+                            <div class="my-page-block mt-2">
+                            <form class="my-page-form" action="" method="GET">
+                                <div class="number">' . $i . '. </div>
+                                <input hidden type="text" value="' . $row['id_page'] . '">
+                                <input hidden type="text" value="' . $row['key_page'] . '">
+                                <input hidden type="text" class="page-text text-center" name="keyToDelete" value="' . $row['name_page'] . '">' . 
+                                '<p>' . $row['name_page'] .
+                                ' | <a href=' . $row['key_page'] . '>' .  $row['key_page'] . '</a></p>' .
+                                '<input class="delete" type="submit" value="x">
+                            </form>
                             </div>
-                        </div>
-                        ';
-                        $i++;
-                    }
-                    ?>
+                            ';
+                            $i++;
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
-            <div class="left col-4 p-0">
-                <div class="top text-center">
-                    <p>Видимые пункты меню</p>
-                </div>
-                <div class="bottom row p-2 w-100 mx-auto">
-                    <?php
-                    foreach($result as $row) {
-                        echo '
-                        <div class="my-page-block col-12 mt-2">
-                            <div class="number">' . $j . '. </div>
-                            <p class="page-text text-center">'. $row['name_page'] . ' | ' . '<a href=' . $row['key_page'] . '>' .  $row['key_page'] . '</a>' . '</p>
-                            <div class="handlers d-flex flex-wrap justify-content-between">
+            <div class="container my-container vh-100 d-flex justify-content-between wrap-nowrap">
+                <div class="right col-4 p-0">
+                    <div class="top text-center">
+                        <p>Видимые пункты меню</p>
+                    </div>
+                    <div class="bottom p-2 w-100 mx-auto">
+                        <?php
+                        foreach($result as $row) {
+                            echo '
+                            <div class="my-page-block mt-2">
+                                <div class="number">' . $j . '. </div>
+                                <p class="page-text text-center">'. $row['name_page'] . ' | ' . '<a href=' . $row['key_page'] . '>' .  $row['key_page'] . '</a>' . '</p>
                             </div>
-                        </div>
-                        ';
-                        $j++;
-                    }
-                    $result->close();
-                    ?>
+                            ';
+                            $j++;
+                        }
+                        $result->close();
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
